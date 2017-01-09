@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 2.8.7)
 project(learncpp)
 
 # Targets
-set(MAIN_TARGET ${CMAKE_PROJECT_NAME})
+set(LIBRARY_TARGET ${CMAKE_PROJECT_NAME})
 set(TESTS_TARGET ${CMAKE_PROJECT_NAME}_tests)
 
 # Directories
@@ -30,17 +30,10 @@ find_package(GTest)
 # -- Main Executable --
 
 # Build main executable
-add_executable(${MAIN_TARGET}
+add_library(${LIBRARY_TARGET}
   ${SOURCE_DIR}/main.cpp)
-target_include_directories(${MAIN_TARGET}
-  PRIVATE ${SOURCE_DIR})
-
-# Run main executable
-add_custom_target(run
-  COMMAND ${MAIN_TARGET}
-  DEPENDS ${MAIN_TARGET}
-  WORKING_DIRECTORY ${BUILD_DIR}
-  COMMENT "Running ${CMAKE_PROJECT_NAME}...")
+target_include_directories(${LIBRARY_TARGET}
+  PUBLIC ${SOURCE_DIR})
 
 # -- Tests Executable --
 
@@ -50,15 +43,15 @@ if (${GTEST_FOUND})
   add_executable(${TESTS_TARGET} EXCLUDE_FROM_ALL
     ${TESTS_DIR}/main.cpp)
   target_include_directories(${TESTS_TARGET}
-    PRIVATE ${SOURCE_DIR}
     PRIVATE ${TESTS_DIR}
     PRIVATE ${GTEST_INCLUDE_DIRS})
   target_link_libraries(${TESTS_TARGET}
+    ${LIBRARY_TARGET}
     ${GTEST_BOTH_LIBRARIES}
     pthread)
 
   # Run tests executable
-  add_custom_target(runtests
+  add_custom_target(run
     COMMAND ${TESTS_TARGET}
     DEPENDS ${TESTS_TARGET}
     WORKING_DIRECTORY ${BUILD_DIR}
