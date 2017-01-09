@@ -18,7 +18,7 @@ int tracer::s_next_id = 0;
 
 /* -- Procedures -- */
 
-void tracer::trace(const std::string& method, const std::string& file, int line)
+void tracer::trace(const std::string& method, const std::string& file, int line) const
 {
   std::cout << "[tracer id=" << m_id << " name=\"" << m_name << "\"] " << method << std::endl;
 }

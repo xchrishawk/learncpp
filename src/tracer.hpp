@@ -71,6 +71,12 @@ namespace learncpp
       TRACE();
     }
 
+    /** Prints a trace. */
+    void trace() const
+    {
+      TRACE();
+    }
+
 #undef TRACE
 
   private:
@@ -79,7 +85,7 @@ namespace learncpp
     const int m_id;
     std::string m_name;
 
-    void trace(const std::string& method, const std::string& file, int line);
+    void trace(const std::string& method, const std::string& file, int line) const;
 
   };
 
