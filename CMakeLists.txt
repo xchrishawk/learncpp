@@ -31,7 +31,7 @@ find_package(GTest)
 
 # Build main executable
 add_library(${LIBRARY_TARGET}
-  ${SOURCE_DIR}/main.cpp)
+  ${SOURCE_DIR}/tracer.cpp)
 target_include_directories(${LIBRARY_TARGET}
   PUBLIC ${SOURCE_DIR})
 
